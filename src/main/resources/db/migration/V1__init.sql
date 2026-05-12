@@ -1,0 +1,8 @@
+create table Orders(
+	id bigint(20) not null AUTO_INCREMENT,
+	order_number varchar(255) DEFAULT null,
+	sku_code varchar(255),
+	price decimal(19, 2),
+	quantity int(11),
+	PRIMARY KEY (id)
+);
