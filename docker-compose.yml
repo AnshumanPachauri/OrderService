@@ -1,0 +1,12 @@
+services:
+  mysql:
+   image: mysql:8.4
+   container_name: mysql_ap
+   environment:
+     MYSQL_ROOT_PASSWORD: root
+   ports:
+#change this while deploying, i used 3307 as the port on my local mashine is already in use.
+     - 3307:3306
+   volumes:
+     - ./mysql:/var/lib/mysql
+     - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
