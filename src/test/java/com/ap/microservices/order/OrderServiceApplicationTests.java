@@ -1,5 +1,6 @@
 package com.ap.microservices.order;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,8 +28,27 @@ class OrderServiceApplicationTests {
 		RestAssured.port = port;
 	}
 	
+	static{
+		mySQLContainer.start();
+	}
+	
 	@Test
-	void contextLoads() {
+	void shouldCreateOrder() {
+
+		String requestBody = """
+	            {
+				    "skuCode":"Iphone 17",
+				    "price":"150000",
+				    "quantity":1
+				}
+	            """;
+			
+			RestAssured.given().contentType("application/json").body(requestBody)
+			.when().post("/api/product").then().statusCode(201)
+			.body("id", Matchers.notNullValue())
+			.body("skuCode", Matchers.equalTo("Iphone 17"))
+			.body("quantity", Matchers.equalTo(1))
+			.body("price", Matchers.equalTo("150000"));
 	}
 
 }
