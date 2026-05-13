@@ -44,7 +44,7 @@ class OrderServiceApplicationTests {
 	            """;
 			
 			RestAssured.given().contentType("application/json").body(requestBody)
-			.when().post("/api/product").then().statusCode(201)
+			.when().post("/api/order").then().statusCode(201)
 			.body("id", Matchers.notNullValue())
 			.body("skuCode", Matchers.equalTo("Iphone 17"))
 			.body("quantity", Matchers.equalTo(1))

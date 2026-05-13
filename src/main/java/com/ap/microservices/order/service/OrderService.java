@@ -9,9 +9,11 @@ import com.ap.microservices.order.model.Order;
 import com.ap.microservices.order.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
 	private final OrderRepository orderRepository; 
@@ -25,6 +27,7 @@ public class OrderService {
 		order.setPrice(orderRequest.price());
 		order.setSkuCode(orderRequest.skuCode());
 		orderRepository.save(order);
+		log.info("Product Created Successfully");
 	}
 	
 }
