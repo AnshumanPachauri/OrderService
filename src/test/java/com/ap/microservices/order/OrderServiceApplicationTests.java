@@ -1,6 +1,7 @@
 package com.ap.microservices.order;
 
 import org.hamcrest.Matchers;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,11 +45,9 @@ class OrderServiceApplicationTests {
 	            """;
 			
 			RestAssured.given().contentType("application/json").body(requestBody)
-			.when().post("/api/order").then().statusCode(201)
-			.body("id", Matchers.notNullValue())
-			.body("skuCode", Matchers.equalTo("Iphone 17"))
-			.body("quantity", Matchers.equalTo(1))
-			.body("price", Matchers.equalTo("150000"));
+			.when().post("/api/order").then().statusCode(201).log().all().extract().body().asString();
+			
+			assertThat(requestBody, Matchers.is("Order Placed Successfully"));
 	}
 
 }
